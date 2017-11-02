@@ -36,7 +36,7 @@ __author__ = "Christian Hetmann"
 from pptx import Presentation
 from pptx.enum.lang import MSO_LANGUAGE_ID
 
-# select a first language
+# select ENGLISH_UK as the new language to be set - this should be changed in the future to pick any language
 new_language = MSO_LANGUAGE_ID.ENGLISH_UK
 
 input_file = 'test_pptx.pptx'
