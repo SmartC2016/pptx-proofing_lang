@@ -31,6 +31,7 @@ __author__ = "Christian Hetmann"
 #todo -- have a start button for execution
 #todo -- have a save button to save the presentation
 #todo create list with all existing languages in order to populate the dropdown
+#todo add licence file
 
 
 from pptx import Presentation
