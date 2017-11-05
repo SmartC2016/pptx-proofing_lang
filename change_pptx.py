@@ -19,19 +19,40 @@ This program allows you to select your pptx, select a language that should be se
 save your pptx under a new name.
 
 if you have any questions, please don't hesitate to come back to me.
+
+-----------
+
+Copyright (C) <2017>  <Christian Hetmann>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+You can contact me: chhe1970@gmail.com
+
+-----------
 """
 
 __author__ = "Christian Hetmann"
 
-#todo create a tkinter window with the following features
-#todo -- open file dialog: open a pptx file
-#todo -- select a language from a dropdown menu that you want to set in the complete presentation
-#todo ---- (default ENGLISH_UK, because that is my favourite :-) )
-#todo -- create a little window for "logging" / showing what the program has found in the given pptx
-#todo -- have a start button for execution
-#todo -- have a save button to save the presentation
-#todo create list with all existing languages in order to populate the dropdown
-#todo add licence file
+# todo create a tkinter window with the following features
+# todo -- open file dialog: open a pptx file
+# todo -- select a language from a dropdown menu that you want to set in the complete presentation
+# todo ---- (default ENGLISH_UK, because that is my favourite :-) )
+# todo -- create a little window for "logging" / showing what the program has found in the given pptx
+# todo -- have a start button for execution
+# todo -- have a save button to save the presentation
+# todo create list with all existing languages in order to populate the dropdown -- SOLVED
+# todo add licence file -- SOLVED
 
 
 from pptx import Presentation
@@ -136,7 +157,6 @@ all_existing_lng = [MSO_LANGUAGE_ID.AFRIKAANS, MSO_LANGUAGE_ID.ALBANIAN, MSO_LAN
                     MSO_LANGUAGE_ID.VENDA, MSO_LANGUAGE_ID.VIETNAMESE, MSO_LANGUAGE_ID.WELSH,
                     MSO_LANGUAGE_ID.XHOSA,
                     MSO_LANGUAGE_ID.YI, MSO_LANGUAGE_ID.YIDDISH, MSO_LANGUAGE_ID.YORUBA, MSO_LANGUAGE_ID.ZULU]
-
 
 input_file = 'test_pptx.pptx'
 output_file = input_file[:-5] + '_modified.pptx'
