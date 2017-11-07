@@ -57,9 +57,6 @@ class App(tk.Frame):
 
         self.tkVar.trace('w', self.change_dropdown)
 
-
-
-
         # Seperate Frame for the buttons
         button_frame = tk.Frame(self)  # this frame also is in the master frame
         button_frame.pack(padx=15, pady=(0, 15), anchor='e')

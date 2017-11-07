@@ -44,6 +44,25 @@ You can contact me: chhe1970@gmail.com
 
 __author__ = "Christian Hetmann"
 
+LICENSE = """
+Copyright (C) <2017>  <Christian Hetmann>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+You can contact me: chhe1970@gmail.com
+"""
+
 # todo create a tkinter window with the following features
 # todo -- open file dialog: open a pptx file
 # todo -- select a language from a dropdown menu that you want to set in the complete presentation
@@ -166,25 +185,27 @@ prs = Presentation(input_file)
 
 # iterate through all slides
 for slide_no, slide in enumerate(prs.slides):
+    print(f'Working on SLIDE NO# {slide_no+1}')
     # iterate through all shapes/objects on one slide
     for shape in slide.shapes:
         # check if the shape/object has text (pictures e.g. don't have text)
         if shape.has_text_frame:
-            # print some output to the console for now
-            print('SLIDE NO# ', slide_no + 1)
-            print('Object-Name: ', shape.name)
-            print('Text -->', shape.text)
             # check for each paragraph of text for the actual shape/object
             for paragraph in shape.text_frame.paragraphs:
                 for run in paragraph.runs:
-                    # display the current language
-                    print('Actual set language: ', run.font.language_id)
-                    # set the 'new_language'
-                    run.font.language_id = new_language
+                    if run.font.language_id != new_language:
+                        # display the current language and new language
+                        print(f'Slide {slide_no+1}, {shape.name}, from {run.font.language_id} --> {new_language}')
+                        # set the 'new_language'
+                        run.font.language_id = new_language
+                    else:
+                        print(f'Slide {slide_no+1}, shape {shape.name} is OK')
         else:
-            print('SLIDE NO# ', slide_no + 1, ': This object "', shape.name, '" has no text.')
-        print(' +++++ next element +++++ ')
-    print('--------- next slide ---------')
+            print(f'Slide {slide_no+1}: The object "{shape.name}" has no text.')
+    if slide_no < len(prs.slides)-1:
+        print('--------- next slide ---------')
+    else:
+        print('******* Finished *******')
 
 # save pptx with new filename
 prs.save(output_file)
