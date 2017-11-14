@@ -41,8 +41,12 @@ You can contact me: chhe1970@gmail.com
 
 -----------
 """
-
 __author__ = "Christian Hetmann"
+
+
+from pptx import Presentation
+from pptx.enum.lang import MSO_LANGUAGE_ID
+
 
 LICENSE = """
 Copyright (C) <2017>  <Christian Hetmann>
@@ -73,9 +77,6 @@ You can contact me: chhe1970@gmail.com
 # todo create list with all existing languages in order to populate the dropdown -- SOLVED
 # todo add licence file -- SOLVED
 
-
-from pptx import Presentation
-from pptx.enum.lang import MSO_LANGUAGE_ID
 
 # select ENGLISH_UK as the new language to be set - this should be changed in the future to pick any language
 new_language = MSO_LANGUAGE_ID.ENGLISH_UK
@@ -180,32 +181,34 @@ all_existing_lng = [MSO_LANGUAGE_ID.AFRIKAANS, MSO_LANGUAGE_ID.ALBANIAN, MSO_LAN
 input_file = 'test_pptx.pptx'
 output_file = input_file[:-5] + '_modified.pptx'
 
+def change_language(presentation, new_language):
+    # iterate through all slides
+    for slide_no, slide in enumerate(prs.slides):
+        print(f'Working on SLIDE NO# {slide_no+1}')
+        # iterate through all shapes/objects on one slide
+        for shape in slide.shapes:
+            # check if the shape/object has text (pictures e.g. don't have text)
+            if shape.has_text_frame:
+                # check for each paragraph of text for the actual shape/object
+                for paragraph in shape.text_frame.paragraphs:
+                    for run in paragraph.runs:
+                        if run.font.language_id != new_language:
+                            # display the current language and new language
+                            print(f'Slide {slide_no+1}, {shape.name}, from {run.font.language_id} --> {new_language}')
+                            # set the 'new_language'
+                            run.font.language_id = new_language
+                        else:
+                            print(f'Slide {slide_no+1}, shape {shape.name} is OK')
+            else:
+                print(f'Slide {slide_no+1}: The object "{shape.name}" has no text.')
+        if slide_no < len(prs.slides)-1:
+            print('--------- next slide ---------')
+        else:
+            print('******* Finished *******')
+    return
+
 # Open the presentation
 prs = Presentation(input_file)
-
-# iterate through all slides
-for slide_no, slide in enumerate(prs.slides):
-    print(f'Working on SLIDE NO# {slide_no+1}')
-    # iterate through all shapes/objects on one slide
-    for shape in slide.shapes:
-        # check if the shape/object has text (pictures e.g. don't have text)
-        if shape.has_text_frame:
-            # check for each paragraph of text for the actual shape/object
-            for paragraph in shape.text_frame.paragraphs:
-                for run in paragraph.runs:
-                    if run.font.language_id != new_language:
-                        # display the current language and new language
-                        print(f'Slide {slide_no+1}, {shape.name}, from {run.font.language_id} --> {new_language}')
-                        # set the 'new_language'
-                        run.font.language_id = new_language
-                    else:
-                        print(f'Slide {slide_no+1}, shape {shape.name} is OK')
-        else:
-            print(f'Slide {slide_no+1}: The object "{shape.name}" has no text.')
-    if slide_no < len(prs.slides)-1:
-        print('--------- next slide ---------')
-    else:
-        print('******* Finished *******')
 
 # save pptx with new filename
 prs.save(output_file)
