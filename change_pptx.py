@@ -183,7 +183,7 @@ output_file = input_file[:-5] + '_modified.pptx'
 
 def change_language(presentation, new_language):
     # iterate through all slides
-    for slide_no, slide in enumerate(prs.slides):
+    for slide_no, slide in enumerate(presentation.slides):
         print(f'Working on SLIDE NO# {slide_no+1}')
         # iterate through all shapes/objects on one slide
         for shape in slide.shapes:
@@ -209,6 +209,8 @@ def change_language(presentation, new_language):
 
 # Open the presentation
 prs = Presentation(input_file)
+
+change_language(prs, new_language)
 
 # save pptx with new filename
 prs.save(output_file)
